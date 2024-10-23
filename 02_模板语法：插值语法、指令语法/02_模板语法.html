@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        插值语法：标签体内容
+        指令语法：解析标签（属性/内容/绑定）    
+    -->
+    
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>插值语法</h1>
+        <h1>Hello {{name}}!</h1>
+        <hr>
+        <h1>指令语法</h1>
+        <a v-bind:href="school.url">{{school.name.toUpperCase()}}</a>
+
+        <!-- v-bind 的简写形式为 : -->
+        <a :href="school.url.toUpperCase()">去淘宝</a>
+
+        
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+
+        // 创建Vue实例
+        new Vue({
+            el:'#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+            data:{
+                name:'world',
+                school:{
+                    name:"哈工大aa",
+                    url:"http://www.taobao.com",
+                }
+            }
+        });
+    </script>
+</body>
+</html>

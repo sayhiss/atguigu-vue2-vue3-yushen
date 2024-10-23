@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>Hello {{name}}!</h1>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+
+        // el的两种写法
+        // const vm = new Vue({
+        //     // el: '#root',//第一种写法
+        //     data: {
+        //         name:"man"
+        //     }
+        // });
+        // console.log(v);
+
+        // setTimeout(()=>{
+        //     vm.$mount('#root');//第二种写法
+        // },1000);
+
+
+        // data的两种写法
+        new Vue({
+            el: '#root',
+
+            // data的第一种写法：对象式
+            // data: {
+            //     name:"man"
+            // }
+            
+            // data的第一种写法：函数式
+            data: function () {
+                console.log(this);// 此处的this是Vue实例对象
+                return { name: "man" };
+            },
+            
+            //也可以省略:function
+            // data() {
+            //     console.log(this);// 此处的this是Vue实例对象
+            //     return { name: "man" };
+            // },
+        });
+
+    </script>
+</body>
+
+</html>

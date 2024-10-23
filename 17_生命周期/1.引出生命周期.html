@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1.引出生命周期</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h2 :style="{opacity}">欢迎学习Vue</h2>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+
+        // 创建Vue实例
+        const vm = new Vue({
+            el: '#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+            data: {
+                opacity: 1
+            },
+            // Vue完成模板的解析并把初始的真实DOM元素放入页面后（挂载完毕）调用mounted
+            mounted() {
+                console.log('mounted');
+                setInterval(() => {
+                    this.opacity -= 0.01
+                    if (this.opacity <= 0) this.opacity = 1
+                }, 16)
+            },
+        });
+
+        // 通过外部的计时器实现（不推荐）
+        // setInterval(() => {
+        //     vm.opacity -= 0.01
+        //     if (vm.opacity <= 0) vm.opacity = 1
+        // }, 16)
+    </script>
+</body>
+
+</html>

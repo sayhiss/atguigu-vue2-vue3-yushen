@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>01_初识Vue</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        * {
+            margin-top: 20px;
+        }
+
+        .demo1 {
+            height: 50px;
+            background-color: blue;
+        }
+
+        .div1{
+            margin: 5px;
+            background-color: burlywood;
+        }
+        .div2{
+            background-color: blueviolet;
+        }
+        .list{
+            width: 200px;
+            height: 200px;
+            background-color: aquamarine;
+            overflow: auto;
+        }
+        li{
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>Hello {{name}}!</h1>
+        <!-- 事件修饰符，阻止默认的事件 -->
+        <a href="htttp://www.taobao.com" @click.prevent="showInfo">点我提示信息</a>
+        <div class="demo1" @click="stopPropagation">
+            <!-- 事件修饰符，阻止事件冒泡 -->
+            <button @click.stop="stopPropagation">点我提示信息</button>
+        </div>
+        <!-- 事件修饰符，事件就触发一次 -->
+        <button @click.once="showInfo">触发一次</button>
+
+        <!-- 事件修饰符，事件捕获就触发事件，不等到默认的冒泡阶段触发 -->
+        <div class="div1" @click.capture="captureTrigger(1)">
+            div1
+            <div class="div2" @click="captureTrigger(2)">
+                div2
+            </div>
+        </div>
+
+        <!-- 事件修饰符，只有evet.target是当前元素时才会执行，也能用来阻止冒泡 -->
+        <div class="demo1" @click.self="showInfo">
+            <!-- 事件修饰符，阻止事件冒泡 -->
+            <button @click="showInfo">点我提示信息</button>
+        </div>
+
+        <!-- 事件修饰符，事件默认行为立即执行，无需等待事件回调执行完毕 -->
+        <ul @wheel.passive="busyFun" class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+
+        // 创建Vue实例
+        new Vue({
+            el: '#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+            data: {
+                name: 'world'
+            },
+            methods: {
+                showInfo(event) {
+                    // 阻止默认事件，对于a标签来说就是跳转事件
+                    // event.preventDefault()
+                    alert("你好！")
+                },
+                stopPropagation(event) {
+                    // 阻止事件冒泡
+                    // event.stopPropagation();
+                    alert("stopPropagation！")
+                },
+                captureTrigger(msg){
+                    console.log(msg);
+                },
+                busyFun(){
+                    for (let index = 0; index < 100000; index++) {
+                        console.log(index);
+                    }
+                    console.log("so tired!");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

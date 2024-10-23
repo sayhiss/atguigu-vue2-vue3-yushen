@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/dayjs.min.js"></script>
+</head>
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>显示格式化后的时间</h1>
+        <!-- 计算属性实现 -->
+        <h3>现在是:{{fmtTime}}</h3>
+        <!-- methods实现 -->
+        <h3>现在是:{{getFmtTime()}}</h3>
+        <!-- 过滤器实现 -->
+        <h3>现在是:{{time | fmtFilter}}</h3>
+        <!-- 过滤器实现传参 -->
+        <h3>现在是:{{time | fmtFilter('YYYY年MM月DD日 HH时mm分ss秒')}}</h3>
+        <!-- 多个过滤器组合 -->
+        <h3>现在是:{{time | fmtFilter('YYYY年MM月DD日 HH时mm分ss秒') | mySlice}}</h3>
+    </div>
+
+    <div id="root2">
+        <h2>{{msg | mySlice}}</h2>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+        // 全局过滤器
+        Vue.filter('mySlice',function(value){
+            return value.slice(0,4)
+        }) 
+
+        // 创建Vue实例
+        new Vue({
+            el:'#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+            data:{
+                time:1621561377603,// 事件戳
+            },
+            computed:{
+                fmtTime(){
+                    return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+            methods: {
+                getFmtTime(){
+                    return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+            filters:{
+                // 局部过滤器
+                fmtFilter(value,format='YYYY-MM-DD HH:mm:ss'){
+                    return dayjs(value).format(format)
+                }
+            }
+        });
+
+        new Vue({
+            el: '#root2',
+            data: {
+                msg:'hello world!'
+            }
+        });
+    </script>
+</body>
+</html>

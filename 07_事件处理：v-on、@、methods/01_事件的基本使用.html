@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>01_事件的基本使用</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>Hello {{name}}!</h1>
+        <button v-on:click="showInfo">点我提示信息</button>
+        <!-- 简写形式 -->
+        <button @click="showInfo">点我提示信息</button>
+        <!-- 传参 -->
+        <button @click="showInfo2($event,66)">点我提示信息</button>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+
+        // 创建Vue实例
+        const vm = new Vue({
+            el:'#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+            data:{
+                name:'world'
+            },
+            // methods里面的函数接受Vue管理，所以不要用箭头函数，否则里面的this就为window了
+            methods:{
+                showInfo(event){
+                    console.log(event.target.innerText)
+                    console.log(this);//此处的this是vm
+                    alert("你好！");
+                },
+                showInfo2(id,event){
+                    console.log(event.target.innerText)
+                    console.log(this);//此处的this是vm
+                    alert("你好！"+id);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

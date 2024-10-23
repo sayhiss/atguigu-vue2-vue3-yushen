@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .demo{
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">创建输入框</button>
+    <script>
+        const btn = document.getElementById('btn')
+        btn.onclick=()=>{
+            const input = document.createElement('input')
+
+            // 这些元素在没有放到页面也能生效
+            input.className = 'demo'
+            input.value=6
+            input.onclick=()=>{
+                alert(1)
+            }
+
+            document.body.appendChild(input)
+
+            // 一下设置必须在添加到页面后设置才能生效
+            input.parentElement.style.backgroundColor = 'blue'
+            input.focus()
+        }
+    </script>
+</body>
+</html>

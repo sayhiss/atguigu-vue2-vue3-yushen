@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.set的使用</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h2>学校的名称：{{name}}</h2>
+        <h2>学校的地址：{{address}}</h2>
+        <hr>
+        <button @click="addProperty">给student添加属性</button>
+        <h2>姓名:{{student.name}}</h2>
+        <h2>年龄：真实{{student.age.rAge}},对外{{student.age.sAge}}</h2>
+        <!-- 有性别就展示 -->
+        <h2 v-if="student.sex">性别：{{student.sex}}</h2>
+        <h2>朋友们</h2>
+        <ul>
+            <li v-for="(f,index) in student.friends" :key="index">
+                {{f.name}} -- {{f.age}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+
+        const vm = new Vue({
+            el: '#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+            data: {
+                name:'尚硅谷',
+                address:"北京",
+                student:{
+                    name:'tom',
+                    age:{
+                        rAge:40,
+                        sAge:29,
+                    },
+                    friends:[
+                        {name:'jerry',age:35},
+                        {name:'tony',age:36},
+                    ]
+                }
+            },
+            methods: {
+                addProperty(){
+
+                    // 动态添加代理的属性：方式1
+                    // Vue.set(this._data.student,"sex","男")
+                    // Vue.set(this.student,"sex","男")
+                    
+                    // 动态添加代理的属性：方式2
+                    // this.$set(this._data.student,"sex","女")
+                    this.$set(this.student,"sex","女")
+
+                    // 局限：只能给data里面的某一个对象增加属性，不能给data增加属性
+                }
+            },
+        });
+
+
+    </script>
+</body>
+
+</html>

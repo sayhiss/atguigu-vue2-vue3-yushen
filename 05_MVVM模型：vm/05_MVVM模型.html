@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- data上的数据都会出现在Vue对象上 -->
+    <!-- Vue对象的数据都可以访问 -->
+    <!-- Vue对象就是MVVM模型中的VM：视图模型，V是界面，M是Data里面的数据 -->
+    
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>名称：{{name}}!</h1>
+        <h1>地址：{{address}}!</h1>
+        <h1>vm：{{$options}}!</h1>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+
+        // 创建Vue实例
+       const vm = new Vue({
+            el:'#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+            data:{
+                name:'江北',
+                address:'重庆',
+            }
+        });
+    </script>
+</body>
+</html>

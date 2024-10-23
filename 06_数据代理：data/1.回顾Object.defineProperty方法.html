@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>1.回顾Object.defineProperty方法</title>
+</head>
+
+<body>
+    <script>
+        var Number = 18
+        var person = {
+            name: "hah",
+        }
+        Object.defineProperty(person, "age", {
+            enumerable: true,
+            get() {
+                console.log("获取age属性");
+                return Number;
+            },
+            set: function (age) {
+                console.log("设置age属性");
+                Number = age;
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>5、姓名案例_监视语法实现</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        1、computed能完成的watch也能完成
+        2、watch能完成的功能，computed不一定能完成，例如：watch可以进行异步操作
+        两个重要的小原则：
+            1、被Vue管理的函数，最好都写成普通函数，这样this的指向才是vm 或者 组件实例
+            2、所有不被管理的函数（定时器的回调函数、ajax的回调函数、Promise的回调函数），最好写成箭头函数，这样
+               this的指向才是vm 或 组件实例对象（箭头函数没有this,它会往作用域往上找）
+     -->
+
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <input type="text" v-model="firstName"><br><br>
+        <input type="text" v-model="lastName"><br><br>
+        全名：<span>{{fullName}}</span>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+
+        // 创建Vue实例
+        const vm = new Vue({
+            el:'#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+            data:{
+                firstName:'张',
+                lastName:"三",
+                fullName:"张-三"
+            },
+            watch:{
+                firstName(newVal,oldVal){
+                    this.fullName = newVal+"-"+this.lastName
+                },
+                lastName(newVal,oldVal){
+                    this.fullName = this.firstName+"-"+newVal
+                }
+            }
+        });
+    </script>
+</body>
+</html>

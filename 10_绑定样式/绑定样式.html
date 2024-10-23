@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>绑定样式</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .basic {
+            width: 400px;
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        .happy {
+            background-color: yellow;
+        }
+
+        .sad {
+            background-color: gray;
+        }
+
+        .normal {
+            background-color: blue;
+        }
+
+        .atguigu1 {
+            border-radius: 10px;
+        }
+
+        .atguigu2 {
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .atguigu3 {
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <!-- 绑定class样式：字符串写法，适用于样式的类名不确定 -->
+        <div class="basic" :class="mood" @click="changeMood">test</div>
+        <br>
+        <!-- 绑定class样式：数组写法，适用于：要绑定的样式个数不确定，名字也不确定 -->
+        <div class="basic" :classArr="styleArr">test2</div>
+        <br>
+        <!-- 绑定class样式：对象写法，适用于：要绑定的样式个数确定，名字不确定，不确定用不用 -->
+        <div class="basic" :class="classObj">test3</div>
+        <br>
+        <div class="basic" :style="styleObj">test4</div>
+        <br>
+        <!-- font-size 要改为 fontSize -->
+        <div class="basic" :style="{fontSize:fSize+'px'}">test4</div>
+        <br>
+        <div class="basic" :style="[styleObj,styleObj1]">test5</div>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+
+        // 创建Vue实例
+        const vm = new Vue({
+            el: '#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+            data: {
+                mood: 'happy',
+                classArr:['happy'],
+                classObj:{
+                    atguigu1:false,
+                    atguigu2:true
+                },
+                styleObj:{
+                    fontSize:'40px',
+                    color:"red",
+                },
+                styleObj1:{
+                    backgroundColor:'blue'
+                },
+                fSize:40,
+            },
+            methods: {
+                changeMood() {
+                    const arr = ['happy', 'sad', 'normal']
+                    const index = Math.floor(Math.random()*3)
+                    this.mood = arr[index]
+                }
+            }
+        });
+
+        
+    </script>
+</body>
+
+</html>

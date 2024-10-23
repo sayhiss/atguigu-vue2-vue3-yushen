@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>列表过滤</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <ul>
+            <input type="text" placeholder="请输入查找内容" v-model="findValue">
+            <li v-for="(p,index) of findPersons" :key="p.id">
+                {{p.name}}-{{p.age}}-{{p.sex}}
+            </li>
+
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。有时候没有用
+
+        // 用watch实现
+        // new Vue({
+        //     el: '#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+        //     data: {
+        //         persons: [
+        //             { id: '001', name: "马冬梅", age: 18, sex: "女" },
+        //             { id: '002', name: "周冬雨", age: 19, sex: "女" },
+        //             { id: '003', name: "周杰伦", age: 20, sex: "男" },
+        //             { id: '004', name: "温兆伦", age: 21, sex: "男" }
+        //         ],
+        //         findPersons:[],
+        //         findValue:""
+        //     },
+        //     watch:{
+        //         findValue:{
+        //             immediate:true,
+        //             handler(newVal,oldVal){
+        //                 this.findPersons = this.persons.filter(item => {
+        //                     return item.name.indexOf(newVal) !== -1;
+        //                 }); 
+        //             }
+        //         }
+        //     }
+        // });
+
+
+        // 用computed实现
+        new Vue({
+            el: '#root',//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符值
+            data: {
+                persons: [
+                    { id: '001', name: "马冬梅", age: 18, sex: "女" },
+                    { id: '002', name: "周冬雨", age: 19, sex: "女" },
+                    { id: '003', name: "周杰伦", age: 20, sex: "男" },
+                    { id: '004', name: "温兆伦", age: 21, sex: "男" }
+                ],
+                findValue: ""
+            },
+            computed: {
+                findPersons() {
+                    return this.persons.filter(item => {
+                        return item.name.indexOf(this.findValue) !== -1;
+                    });
+                }
+            }
+
+        });
+
+
+    </script>
+</body>
+
+</html>
