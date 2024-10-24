@@ -7,6 +7,9 @@ module.exports = defineConfig({
   //   proxy:'http://localhost:5000'
   // }
 
+  // 关闭语法检查
+  // lintOnSave:false,
+
   // 开启代理服务器（方式二）
   devServer:{
     proxy:{
